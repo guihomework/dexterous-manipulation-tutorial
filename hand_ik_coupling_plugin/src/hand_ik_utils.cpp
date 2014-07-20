@@ -40,7 +40,10 @@
 namespace hand_kinematics
 {
 	static const double IK_DEFAULT_TIMEOUT = 10.0;
-	bool loadRobotModel(ros::NodeHandle node_handle, urdf::Model &robot_model, std::string &root_name, std::string &tip_name, std::string &xml_string)
+  
+  // Load the robot model from the URDF on the parameter server and the root and tip names
+	bool loadRobotModel(ros::NodeHandle node_handle, urdf::Model &robot_model, 
+        std::string &root_name, std::string &tip_name, std::string &xml_string)
   {
     std::string urdf_xml,full_urdf_xml;
     node_handle.param("urdf_xml",urdf_xml,std::string("robot_description"));
@@ -74,14 +77,17 @@ namespace hand_kinematics
 			ROS_FATAL("Current solver can only resolve to one of the tip frames");
 			return false;
 		}
-		if(tip_name.find("fftip")==std::string::npos && tip_name.find("mftip")==std::string::npos && tip_name.find("rftip")==std::string::npos && tip_name.find("lftip")==std::string::npos && tip_name.find("thtip")==std::string::npos){
+		if(tip_name.find("fftip")==std::string::npos &&
+       tip_name.find("mftip")==std::string::npos &&
+       tip_name.find("rftip")==std::string::npos &&
+       tip_name.find("lftip")==std::string::npos){
 			ROS_FATAL("Name of distal frame does not match any finger");
 			return false;	
 		}
-        
     return true;
   }
 
+  // fill a KDL chain from the URDF xml file
 	bool getKDLChain(const std::string &xml_string, const std::string &root_name, const std::string &tip_name, KDL::Chain &kdl_chain)
   {
     // create robot chain from root to tip
@@ -99,6 +105,7 @@ namespace hand_kinematics
     return true;
   }
 
+  // Get the index of the segment in the kdl chain
 	int getKDLSegmentIndex(const KDL::Chain &chain,
                          const std::string &name)
   {
@@ -114,6 +121,9 @@ namespace hand_kinematics
     return -1;
   }
   
+  // Coupling update function. 
+  // Currently using a static matrix, 
+  // but can be different depending on the current joint position
 	Eigen::MatrixXd updateCoupling(const KDL::JntArray& q)
 	{
 		Eigen::MatrixXd cm(4,3);
@@ -129,6 +139,7 @@ namespace hand_kinematics
 		return cm;
 	}
 
+  // Coupling update function for LF 
 	Eigen::MatrixXd updateCouplingLF(const KDL::JntArray& q)
 	{
 		Eigen::MatrixXd cm(5,4);
@@ -145,6 +156,7 @@ namespace hand_kinematics
 		return cm;
 	}
 
+  // Initialize the IK solver with joint limits, root and tip names
   bool init_ik(urdf::Model &robot_model, const std::string &root_name, const std::string &tip_name, KDL::JntArray &joint_min, KDL::JntArray &joint_max,  moveit_msgs::KinematicSolverInfo &info )
   {
     unsigned int num_joints = 0;
@@ -209,6 +221,7 @@ namespace hand_kinematics
 
   }
   
+  // enforce the coupling on the joint angles (used after randomizing the joint values)
   void maintainCoupling(KDL::JntArray &jnt_pos_in, const std::string &tip_name)
   {
     // maintain 1:1 coupling

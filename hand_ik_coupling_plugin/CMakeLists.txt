@@ -8,13 +8,17 @@ catkin_package(
     DEPENDS orocos_kdl
     CATKIN_DEPENDS roscpp tf urdf kdl_parser kdl_coupling sensor_msgs tf_conversions moveit_core geometry_msgs pluginlib moveit_msgs moveit_ros_planning
     INCLUDE_DIRS include
-    LIBRARIES hand_kinematics hand_kinematics_coupling_lib
+    LIBRARIES libmoveit_kinematics_plugin_loader
 )
 
 add_library(hand_ik_coupling_plugin src/hand_ik_coupling_plugin.cpp
     src/hand_ik_utils.cpp)
 add_dependencies(hand_ik_coupling_plugin ${catkin_EXPORTED_TARGETS})
 target_link_libraries(hand_ik_coupling_plugin ${catkin_LIBRARIES} ${moveit_core_LIBRARIES} ${orocos_kdl_LIBRARIES})
+
+add_rostest_gtest(test_hand_ik_as_plugin test/hand_kinematics_plugin_test.test test/test_kinematics_as_plugin.cpp)
+target_link_libraries(test_hand_ik_as_plugin ${moveit_core_LIBRARIES} ${catkin_LIBRARIES} ${orocos_kdl_LIBRARIES})
+add_dependencies(test_hand_ik_as_plugin libmoveit_kinematics_plugin_loader hand_kinematics_gencpp ${catkin_EXPORTED_TARGETS})
 
 install(TARGETS hand_ik_coupling_plugin
     LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}

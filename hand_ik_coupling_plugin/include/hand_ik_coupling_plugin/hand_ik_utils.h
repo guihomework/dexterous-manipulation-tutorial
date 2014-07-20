@@ -48,7 +48,6 @@
 #include <tf/tf.h>
 #include <tf/transform_listener.h>
 #include <tf_conversions/tf_kdl.h>
-
 #include <moveit_msgs/GetPositionFK.h>
 #include <moveit_msgs/GetPositionIK.h>
 #include <moveit_msgs/GetConstraintAwarePositionIK.h>
@@ -69,53 +68,13 @@ namespace hand_kinematics
                    const std::string &tip_name,
                    KDL::Chain &kdl_chain);
 
-  bool getKDLTree(const std::string &xml_string,
-                   const std::string &root_name,
-                   const std::string &tip_name,
-                   KDL::Tree &kdl_chain);
-
-  bool checkJointNames(const std::vector<std::string> &joint_names,
-                       const moveit_msgs::KinematicSolverInfo &chain_info);
-
-  bool checkLinkNames(const std::vector<std::string> &link_names,
-                      const moveit_msgs::KinematicSolverInfo &chain_info);
-
-  bool checkLinkName(const std::string &link_name,
-                     const moveit_msgs::KinematicSolverInfo &chain_info);
-
-  bool checkRobotState(moveit_msgs::RobotState &robot_state,
-                       const moveit_msgs::KinematicSolverInfo &chain_info);
-
-  bool checkFKService(moveit_msgs::GetPositionFK::Request &request,
-                      moveit_msgs::GetPositionFK::Response &response,
-                      const moveit_msgs::KinematicSolverInfo &chain_info);
-
-  bool checkIKService(moveit_msgs::GetPositionIK::Request &request,
-                      moveit_msgs::GetPositionIK::Response &response,
-                      const moveit_msgs::KinematicSolverInfo &chain_info);
-
-  int getJointIndex(const std::string &name,
-                    const moveit_msgs::KinematicSolverInfo &chain_info);
-
-  bool convertPoseToRootFrame(const geometry_msgs::PoseStamped &pose_msg,
-                              KDL::Frame &pose_kdl,
-                              const std::string &root_frame,
-                              tf::TransformListener& tf);
-
-  bool convertPoseToRootFrame(const geometry_msgs::PoseStamped &pose_msg,
-                              geometry_msgs::PoseStamped &pose_msg_out,
-                              const std::string &root_frame,
-                              tf::TransformListener& tf);
-
   int getKDLSegmentIndex(const KDL::Chain &chain,
                          const std::string &name);
 
-  void getKDLChainInfo(const KDL::Chain &chain,
-                       moveit_msgs::KinematicSolverInfo &chain_info);
-              
-  bool init_ik(urdf::Model &robot_model, const std::string &root_name, const std::string &tip_name, KDL::JntArray &joint_min, KDL::JntArray &joint_max, moveit_msgs::KinematicSolverInfo &info);
+  bool init_ik(urdf::Model &robot_model, const std::string &root_name,
+                const std::string &tip_name, KDL::JntArray &joint_min,
+      KDL::JntArray &joint_max, moveit_msgs::KinematicSolverInfo &info);
   
-  // coupling matrices
   Eigen::MatrixXd updateCoupling(const KDL::JntArray& q);
   Eigen::MatrixXd updateCouplingLF(const KDL::JntArray& q);
   
