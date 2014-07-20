@@ -1,0 +1,9 @@
+<library path="lib/libhand_ik_coupling_plugin">
+  <class name="hand_ik_coupling_plugin/HandIKCouplingPlugin" type="hand_kinematics::HandIKCouplingPlugin" base_class_type="kinematics::KinematicsBase">
+    <description>
+      Computation of forward and inverse kinematics for the fingers of the Shadow Hand, including coupling.
+    </description>
+  </class>
+</library>
+
+
