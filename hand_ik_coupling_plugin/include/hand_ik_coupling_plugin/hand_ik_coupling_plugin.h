@@ -75,12 +75,6 @@ class HandIKCouplingPlugin : public kinematics::KinematicsBase
      */
     HandIKCouplingPlugin();
 
-    /** 
-     *  @brief Specifies if the node is active or not
-     *  @return True if the node is active, false otherwise.
-     */
-    bool isActive();
-
     /**
      * @brief Given a desired pose of the end-effector, compute the joint angles to reach it
      * @return True if a valid solution was found, false otherwise
