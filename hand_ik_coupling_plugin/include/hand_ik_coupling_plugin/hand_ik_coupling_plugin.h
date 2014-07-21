@@ -51,10 +51,10 @@
 #include <tf/transform_datatypes.h>
 
 #include <kdl/jntarray.hpp>
-#include <kdl_coupling/chain_coupling.hpp>
+#include <kdl_coupling_extension/chain_coupling.hpp>
 #include <kdl/chainfksolverpos_recursive.hpp>
-#include <kdl_coupling/chainiksolverpos_nr_jl_coupling.hpp>
-#include <kdl_coupling/chainiksolvervel_wdls_coupling.hpp>
+#include <kdl_coupling_extension/chainiksolverpos_nr_jl_coupling.hpp>
+#include <kdl_coupling_extension/chainiksolvervel_wdls_coupling.hpp>
 #include <moveit_msgs/KinematicSolverInfo.h>
 #include <urdf/model.h>
 #include <string>
