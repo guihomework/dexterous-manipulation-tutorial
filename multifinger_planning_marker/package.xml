@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<package>
+  <name>multifinger_planning_marker</name>
+  <version>0.0.0</version>
+  <description> multifinger_planning_marker : Includes 
+	* Interactive markers to control planning states	</description>
+
+  <maintainer email="gwalck@techfak.uni-bielefeld.de">Guillaume WALCK (CITEC)</maintainer>
+
+  <license>GPL</license>
+
+  <author>Guillaume WALCK (CITEC)</author> -->
+
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>interactive_markers</build_depend>
+  <build_depend>moveit_core</build_depend>
+  <build_depend>moveit_msgs</build_depend>
+  <build_depend>moveit_ros_planning</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>interactive_markers</run_depend>
+  <run_depend>moveit_core</run_depend>
+  <run_depend>moveit_msgs</run_depend>
+  <run_depend>moveit_ros_planning</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+
+</package>
