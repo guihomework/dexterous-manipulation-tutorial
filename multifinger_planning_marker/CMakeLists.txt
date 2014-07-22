@@ -19,7 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 
 catkin_package(
-  INCLUDE_DIRS include
+  INCLUDE_DIRS 
   LIBRARIES multifinger_planning_marker
   CATKIN_DEPENDS geometry_msgs interactive_markers moveit_core moveit_msgs moveit_ros_planning roscpp rospy std_msgs tf visualization_msgs
 #  DEPENDS system_lib
