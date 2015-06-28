@@ -68,7 +68,7 @@ namespace hand_kinematics
     }
     robot_model.initXml(root);
     
-   	if(root_name!="palm") {
+   	if(root_name.find("palm")==std::string::npos) {
 			ROS_FATAL("HANDIK: Current solver can only resolve to root frame = palm");
 			return false;
 		}
