@@ -49,6 +49,7 @@
         <joint name="LFtip" />
         <joint name="MFtip" />
         <joint name="RFtip" />
+        <joint name="hand_to_grasp" />
     </group>
     <group name="armpalm">
         <joint name="WRJ2" />
@@ -76,6 +77,9 @@
         <group name="ring_finger" />
         <group name="little_finger" />
         <group name="thumb" />
+    </group>
+    <group name="armgrasp">
+        <chain base_link="base_link" tip_link="grasp_center" />
     </group>
     <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
     <group_state name="open" group="hand">
@@ -462,6 +466,16 @@
         <joint name="wrist_2_joint" value="0" />
         <joint name="wrist_3_joint" value="0" />
     </group_state>
+    <group_state name="zero" group="armgrasp">
+        <joint name="WRJ1" value="0" />
+        <joint name="WRJ2" value="0" />
+        <joint name="elbow_joint" value="0" />
+        <joint name="shoulder_lift_joint" value="0" />
+        <joint name="shoulder_pan_joint" value="0" />
+        <joint name="wrist_1_joint" value="0" />
+        <joint name="wrist_2_joint" value="0" />
+        <joint name="wrist_3_joint" value="0" />
+    </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="hand" parent_link="forearm" group="hand" parent_group="arm" />
     <end_effector name="palm" parent_link="palm" group="fingers" />
@@ -470,8 +484,11 @@
     <end_effector name="rftip_ee" parent_link="rftip" group="ring_finger" parent_group="hand" />
     <end_effector name="lftip_ee" parent_link="lftip" group="little_finger" parent_group="hand" />
     <end_effector name="thtip_ee" parent_link="thtip" group="thumb" parent_group="hand" />
+    <end_effector name="grasp_ee" parent_link="grasp_center" group="hand" />
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="world_to_arm" type="fixed" parent_frame="world" child_link="base_link" />
+    <!--PASSIVE JOINT: Purpose: this element is used to mark joints that are not actuated-->
+    <passive_joint name="hand_to_grasp" />
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
     <disable_collisions link1="base_link" link2="forearm_link" reason="Never" />
     <disable_collisions link1="base_link" link2="shoulder_link" reason="Adjacent" />

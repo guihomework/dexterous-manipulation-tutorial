@@ -7,18 +7,10 @@ controller_list:
       - wrist_1_joint
       - wrist_2_joint
       - wrist_3_joint
-  - name: fake_armpalm_controller
-    joints:
-      - shoulder_pan_joint
-      - shoulder_lift_joint
-      - elbow_joint
-      - wrist_1_joint
-      - wrist_2_joint
-      - wrist_3_joint
-      - WRJ2
-      - WRJ1      
   - name: fake_hand_controller
     joints:
+      - WRJ2
+      - WRJ1
       - FFJ4
       - FFJ3
       - FFJ2
@@ -41,6 +33,17 @@ controller_list:
       - THJ3
       - THJ2
       - THJ1
+      - hand_to_grasp
+  - name: fake_armpalm_controller
+    joints:
+      - shoulder_pan_joint
+      - shoulder_lift_joint
+      - elbow_joint
+      - wrist_1_joint
+      - wrist_2_joint
+      - wrist_3_joint
+      - WRJ2
+      - WRJ1
   - name: fake_first_finger_controller
     joints:
       - FFJ4
@@ -73,3 +76,14 @@ controller_list:
       - THJ3
       - THJ2
       - THJ1
+  - name: fake_armgrasp_controller
+    joints:
+      - shoulder_pan_joint
+      - shoulder_lift_joint
+      - elbow_joint
+      - wrist_1_joint
+      - wrist_2_joint
+      - wrist_3_joint
+      - WRJ2
+      - WRJ1
+      - hand_to_grasp
