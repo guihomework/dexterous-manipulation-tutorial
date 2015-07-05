@@ -1,0 +1,8 @@
+<launch>
+ 
+  <node name="regrasping"  pkg="regrasping_app" type="regrasping_app.py" respawn="false"
+  output="screen">
+    <rosparam command="load" param="grasps"
+    file="$(find regrasping_app)/config/grasps.yaml" />
+  </node>
+</launch>
