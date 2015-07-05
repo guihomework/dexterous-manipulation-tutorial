@@ -33,7 +33,6 @@ controller_list:
       - THJ3
       - THJ2
       - THJ1
-      - hand_to_grasp
   - name: fake_armpalm_controller
     joints:
       - shoulder_pan_joint
