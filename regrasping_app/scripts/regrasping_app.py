@@ -83,7 +83,7 @@ if __name__ == "__main__":
     
     # access some meshes
     rospack = rospkg.RosPack()
-    resourcepath = rospack.get_path('grasp_app')+"/../resources/"
+    resourcepath = rospack.get_path('regrasping_app')+"/../resources/"
     
     # modify the pose
     p.pose.position.x = 0.7
