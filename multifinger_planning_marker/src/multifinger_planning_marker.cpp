@@ -47,15 +47,13 @@ using namespace interactive_markers;
 boost::shared_ptr<interactive_markers::InteractiveMarkerServer> server;
 float marker_pos = 0;
 
-// publisher and subscriber to connect to the planning markers
+// publisher to connect to the planning markers
 ros::Publisher moveit_marker_publisher;
-ros::Subscriber moveit_marker_subscriber;
 
 // menu and related variables to connect and disconnect the marker from the fingers
 MenuHandler menu_handler;
 MenuHandler::EntryHandle h_attach;
 bool control_goal = true;
-bool ee_active = false;
 bool attached = false;
 
 std::string joint_prefix="rh_";
@@ -102,8 +100,8 @@ void processFeedback(
     case visualization_msgs::InteractiveMarkerFeedback::MOUSE_UP:
       ROS_DEBUG_STREAM( s.str() << ": mouse up." );
 
-      // if attached and planning is active (at least start or goal clicked)
-      if(attached && ee_active)
+      // if attached
+      if(attached)
       {
         // check if start or goal is clicked, will move goal if both selected
         std::string name_prefix;
@@ -146,28 +144,6 @@ void processFeedback(
       break;
   }
   server->applyChanges();
-}
-
-// Process incoming planning markers update
-void control_goalCb(const visualization_msgs::InteractiveMarkerUpdateConstPtr &update)
-{
-  if(attached)
-  {
-    if (update->poses.size()!=0)
-    {
-      ee_active=true;
-      // use the updated planning markers to check if start or goal markers
-      // are currently active
-      if(update->poses[0].name.find("goal")!=std::string::npos)
-        control_goal=true;
-      else
-        control_goal=false;
-    }
-    else
-    {
-      ee_active=false;
-    }
-  }
 }
 
 // Callback when the attach menu entry was called. Switches attached status
@@ -317,11 +293,9 @@ int main(int argc, char** argv)
   // Access the planning markers with its feedback and update topics
   moveit_marker_publisher = n.advertise<visualization_msgs::InteractiveMarkerFeedback>(
     "/rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/feedback",2);
-  moveit_marker_subscriber = n.subscribe<visualization_msgs::InteractiveMarkerUpdate>(
-    "/rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/update",2,control_goalCb);
-    
+
   ros::Duration(0.1).sleep();
-	
+
   // Create a joint TH and FF marker
   make3DofMarker("thff",base_frame);
   
