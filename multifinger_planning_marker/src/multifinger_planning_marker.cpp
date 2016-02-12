@@ -58,6 +58,9 @@ bool control_goal = true;
 bool ee_active = false;
 bool attached = false;
 
+std::string joint_prefix="rh_";
+std::string base_frame = joint_prefix + "palm";
+
 // The main processing function of the interactive markers.
 // Called on events/incoming messages of our own marker
 void processFeedback(
@@ -111,8 +114,8 @@ void processFeedback(
           
         // Simulated a move action on the fftip planning interactive marker
         visualization_msgs::InteractiveMarkerFeedback markerFeedBack;
-        markerFeedBack.marker_name=name_prefix+"fftip";
-        markerFeedBack.header.frame_id="palm";
+        markerFeedBack.marker_name=name_prefix+joint_prefix+"fftip";
+        markerFeedBack.header = base_frame;
         markerFeedBack.control_name="move";
         markerFeedBack.event_type=visualization_msgs::InteractiveMarkerFeedback::POSE_UPDATE;
         
@@ -134,7 +137,7 @@ void processFeedback(
         
         // prepare a similar marker for the thumb with a negative offset
         // (from below)
-        markerFeedBack.marker_name=name_prefix+"thtip";
+        markerFeedBack.marker_name=name_prefix+joint_prefix+"thtip";
         markerFeedBack.pose.position.z-=0.020;
         // Publish the marker (will move the planning marker)
         moveit_marker_publisher.publish(markerFeedBack);
@@ -274,7 +277,7 @@ void make3DofMarker(std::string name, std::string frame_id)
 void makeMenuMarker( std::string name )
 {
   InteractiveMarker int_marker;
-  int_marker.header.frame_id = "palm";
+  int_marker.header.frame_id = base_frame;
   int_marker.name = name;
   // Place it at the back of the palm as a button.
   int_marker.pose.position.x = 0.0;
@@ -320,7 +323,7 @@ int main(int argc, char** argv)
   ros::Duration(0.1).sleep();
 	
   // Create a joint TH and FF marker
-  make3DofMarker("thff","palm");
+  make3DofMarker("thff",base_frame);
   
   // Init and add a menu
   initMenu();
