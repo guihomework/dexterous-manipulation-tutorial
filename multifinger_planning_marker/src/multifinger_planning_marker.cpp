@@ -124,15 +124,8 @@ void processFeedback(
         markerFeedBack.pose.position.z+=0.010;
         markerFeedBack.header.seq=feedback->header.seq;
         
-        // Fake the mouse pointing        
-        markerFeedBack.mouse_point.x=0.0388541817665;
-        markerFeedBack.mouse_point.y=-0.0139917135239;
-        markerFeedBack.mouse_point.z=0.444140136242;
-        markerFeedBack.mouse_point_valid=true;
-        
         // Publish the marker (will move the planning marker)
         moveit_marker_publisher.publish(markerFeedBack);
-        
         // prepare a similar marker for the thumb with a negative offset
         // (from below)
         markerFeedBack.marker_name=name_prefix+joint_prefix+"thtip";
