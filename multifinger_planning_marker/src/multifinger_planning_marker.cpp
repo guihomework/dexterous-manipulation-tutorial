@@ -126,12 +126,14 @@ void processFeedback(
         
         // Publish the marker (will move the planning marker)
         moveit_marker_publisher.publish(markerFeedBack);
+#if 0
         // prepare a similar marker for the thumb with a negative offset
         // (from below)
         markerFeedBack.marker_name=name_prefix+joint_prefix+"thtip";
         markerFeedBack.pose.position.z-=0.020;
         // Publish the marker (will move the planning marker)
         moveit_marker_publisher.publish(markerFeedBack);
+#endif
       }
         
       break;
