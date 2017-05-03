@@ -113,7 +113,7 @@ void processFeedback(
         // Simulated a move action on the fftip planning interactive marker
         visualization_msgs::InteractiveMarkerFeedback markerFeedBack;
         markerFeedBack.marker_name=name_prefix+joint_prefix+"fftip";
-        markerFeedBack.header = base_frame;
+        markerFeedBack.header.frame_id = base_frame;
         markerFeedBack.control_name="move";
         markerFeedBack.event_type=visualization_msgs::InteractiveMarkerFeedback::POSE_UPDATE;
         

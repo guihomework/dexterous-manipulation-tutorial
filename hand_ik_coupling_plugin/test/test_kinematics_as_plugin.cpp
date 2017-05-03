@@ -67,7 +67,7 @@ class MyTest
     std::string plugin_name="hand_ik_coupling_plugin/HandIKCouplingPlugin";
     try
     {
-      kinematics_solver_ = kinematics_loader_->createInstance(plugin_name);
+      kinematics_solver_ = kinematics_loader_->createUniqueInstance(plugin_name);
     }
     catch(pluginlib::PluginlibException& ex)//handle the class failing to load
     {
