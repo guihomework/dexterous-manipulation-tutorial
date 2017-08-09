@@ -1,0 +1,27 @@
+From 566357bab3bfa8a9c266e9fd2bfe29401602caa2 Mon Sep 17 00:00:00 2001
+From: Guillaume Walck <gwalck@techfak.uni-bielefeld.de>
+Date: Wed, 9 Aug 2017 19:31:50 +0200
+Subject: [PATCH] Modified the group of the arm end-effector to not be the arm
+ itself
+
+was invalid when getAttachedEndEffectorNames was called
+---
+ sr_multi_moveit/sr_multi_moveit_config/scripts/generate_robot_srdf.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sr_multi_moveit/sr_multi_moveit_config/scripts/generate_robot_srdf.py b/sr_multi_moveit/sr_multi_moveit_config/scripts/generate_robot_srdf.py
+index e8fc772..48de0fb 100755
+--- a/sr_multi_moveit/sr_multi_moveit_config/scripts/generate_robot_srdf.py
++++ b/sr_multi_moveit/sr_multi_moveit_config/scripts/generate_robot_srdf.py
+@@ -400,7 +400,7 @@ class SRDFRobotGenerator(object):
+                 elt.getAttributeNode("name").nodeValue = manipulator.arm.prefix + elt.getAttribute("name")
+                 elt.getAttributeNode("parent_link").nodeValue = (manipulator.arm.prefix +
+                                                                  elt.getAttribute("parent_link"))
+-                elt.getAttributeNode("group").nodeValue = manipulator.arm.internal_name
++                elt.getAttributeNode("group").nodeValue = manipulator.hand.internal_name
+                 elt.writexml(self.new_robot_srdf, indent="  ", addindent="  ", newl="\n")
+                 newElement = deepcopy(elt)
+                 newElement.getAttributeNode("name").nodeValue = manipulator.arm.internal_name + "_and_wrist_ee"
+-- 
+2.7.4
+
